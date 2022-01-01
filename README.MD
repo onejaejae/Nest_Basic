@@ -31,3 +31,25 @@ Node.js에서 모듈 캐싱으로 싱글톤 패턴에 의미가 없다는 것은
 출처
 
 https://www.inflearn.com/course/%ED%83%84%ED%83%84%ED%95%9C-%EB%B0%B1%EC%97%94%EB%93%9C-%EB%84%A4%EC%8A%A4%ED%8A%B8/lecture/83533?tab=community&volume=0.90&quality=1080&speed=1.25&q=363872
+
+<br>
+
+### 의존성 주입
+
+---
+
+<br>
+
+https://kotlinworld.com/64
+
+https://www.wisewiredbooks.com/nestjs/overview/04-provider.html
+
+<br>
+
+### 응집도와 결합도
+
+---
+
+<Br>
+
+https://medium.com/@jang.wangsu/%EC%84%A4%EA%B3%84-%EC%9A%A9%EC%96%B4-%EC%9D%91%EC%A7%91%EB%8F%84%EC%99%80-%EA%B2%B0%ED%95%A9%EB%8F%84-b5e2b7b210ff
