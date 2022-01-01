@@ -53,3 +53,17 @@ https://www.wisewiredbooks.com/nestjs/overview/04-provider.html
 <Br>
 
 https://medium.com/@jang.wangsu/%EC%84%A4%EA%B3%84-%EC%9A%A9%EC%96%B4-%EC%9D%91%EC%A7%91%EB%8F%84%EC%99%80-%EA%B2%B0%ED%95%A9%EB%8F%84-b5e2b7b210ff
+
+<br>
+
+### pipe pattern
+
+---
+
+<br>
+
+✔ pipe는 클라이언트 요청에서 들어오는 데이터를 유효성 검사 및 변환을 수행하여 서버가 원하는 데이터를 얻을 수 있도록 도와주는 클래스입니다.
+
+<br>
+
+<img src="https://user-images.githubusercontent.com/62149784/147855182-45062266-d2a4-4a51-87f1-fc7f25190e06.png">
