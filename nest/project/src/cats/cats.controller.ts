@@ -1,6 +1,7 @@
 import { HttpExceptionFilter } from '../common/exceptions/http-exception.filter';
 import { CatsService } from './cats.service';
 import {
+  Body,
   Controller,
   Get,
   Post,
@@ -8,6 +9,7 @@ import {
   UseInterceptors,
 } from '@nestjs/common';
 import { SuccessInterceptor } from 'src/common/interceptors/success.intercept';
+import { CatRequestDto } from './dto/cats.request.dto';
 
 @Controller('cats')
 @UseInterceptors(SuccessInterceptor)
@@ -22,9 +24,9 @@ export class CatsController {
     return 'current cat';
   }
 
-  @Post('login')
-  signUp() {
-    return 'signUp';
+  @Post()
+  async signUp(@Body() body: CatRequestDto) {
+    return await this.catsService.signUp(body);
   }
 
   @Post('login')

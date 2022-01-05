@@ -27,6 +27,17 @@ export class Cat extends Document {
   @IsString()
   @IsNotEmpty()
   imgUrl: string;
+
+  readonly readOnlyData: { id: string; email: string; name: string };
 }
 
 export const CatSchema = SchemaFactory.createForClass(Cat);
+
+// client에 필요한 것들만 return 하기 위한 설정
+CatSchema.virtual('readOnlyData').get(function (this: Cat) {
+  return {
+    id: this.id,
+    email: this.email,
+    name: this.name,
+  };
+});
