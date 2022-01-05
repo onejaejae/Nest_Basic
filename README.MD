@@ -67,3 +67,13 @@ https://medium.com/@jang.wangsu/%EC%84%A4%EA%B3%84-%EC%9A%A9%EC%96%B4-%EC%9D%91%
 <br>
 
 <img src="https://user-images.githubusercontent.com/62149784/147855182-45062266-d2a4-4a51-87f1-fc7f25190e06.png">
+
+<br>
+
+### Mongoose virtual
+
+---
+
+<br>
+
+https://www.zerocho.com/category/MongoDB/post/59a1870210b942001853e250

@@ -1,4 +1,5 @@
-import { IsEmail, IsNotEmpty, IsString } from 'class-validator';
+import { PickType } from '@nestjs/swagger';
+import { Cat } from '../cats.schema';
 
 // class 사용 이유
 
@@ -7,16 +8,8 @@ import { IsEmail, IsNotEmpty, IsString } from 'class-validator';
 2. 상속을 통한 재사용성 가능
  */
 
-export class CatRequestDto {
-  @IsEmail()
-  @IsNotEmpty()
-  email: string;
-
-  @IsString()
-  @IsNotEmpty()
-  name: string;
-
-  @IsString()
-  @IsNotEmpty()
-  password: string;
-}
+export class CatRequestDto extends PickType(Cat, [
+  'email',
+  'name',
+  'password',
+] as const) {}
