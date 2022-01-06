@@ -77,3 +77,21 @@ https://medium.com/@jang.wangsu/%EC%84%A4%EA%B3%84-%EC%9A%A9%EC%96%B4-%EC%9D%91%
 <br>
 
 https://www.zerocho.com/category/MongoDB/post/59a1870210b942001853e250
+
+<br>
+
+### jwt flow
+
+---
+
+<br>
+
+<img src="https://user-images.githubusercontent.com/62149784/148414577-e14c7219-ed08-4a34-906b-27e3f1824b7c.jpg">
+
+<br>
+
+1. JWT가 헤더에 담겨서 request 요청을 보낸다.
+
+2. JWT Guard가 실행이 되어 JWT Strategy가 실행이 된다(validate 실행).
+
+3. JWT Strategy에서는 secret key를 통해서 디코딩을 하고 유효하다면 requset에 유저 정보를 담고 이후에 API를 처리한다.

@@ -8,6 +8,8 @@ import { AuthService } from './auth.service';
 @Module({
   imports: [
     PassportModule.register({ defaultStrategy: 'jwt', session: false }),
+
+    // JWT 토큰을 발급하기 위해 사용
     JwtModule.register({
       signOptions: { expiresIn: '1y' },
     }),
