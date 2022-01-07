@@ -17,7 +17,7 @@ import {
 import { SuccessInterceptor } from 'src/common/interceptors/success.intercept';
 import { CatRequestDto } from './dto/cats.request.dto';
 import { ApiOperation, ApiResponse } from '@nestjs/swagger';
-import { Request } from 'express';
+import { Cat } from './cats.schema';
 
 @Controller('cats')
 @UseInterceptors(SuccessInterceptor)
@@ -30,9 +30,12 @@ export class CatsController {
 
   @ApiOperation({ summary: '현재 고양이 가져오기' })
   @Get()
+  //@UseGuard(JwtAuthGuard)로 데코레이팅된 컨트롤러가 실행되면
+  //JwtAuthGuard는 자동으로 PassportStrategy를 상속받은 JwtStrategy를 찾아서
+  // 로직을 수행합니다.
   @UseGuards(JwtAuthGuard)
   // Custom decorator를 사용하여 한 단계 더 추상화를 진행
-  getCurrentCat(@CurrentUser() cat) {
+  getCurrentCat(@CurrentUser() cat: Cat) {
     // express error 처리 => throw new Error()
     // nest error 처리 => throw new HttpException('api is broken', 401);
 

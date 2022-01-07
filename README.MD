@@ -95,3 +95,45 @@ https://www.zerocho.com/category/MongoDB/post/59a1870210b942001853e250
 2. JWT Guard가 실행이 되어 JWT Strategy가 실행이 된다(validate 실행).
 
 3. JWT Strategy에서는 secret key를 통해서 디코딩을 하고 유효하다면 requset에 유저 정보를 담고 이후에 API를 처리한다.
+
+<br>
+
+### JwtAuthGuard가 Strategy를 어떻게 알고 실행하는건가요?
+
+---
+
+<br>
+
+@UseGuard(JwtAuthGuard)로 데코레이팅된 컨트롤러가 실행되면 JwtAuthGuard는 자동으로 PassportStrategy를 상속받은 JwtStrategy를 찾아서 로직을 수행합니다.
+
+여기서 JwtAuthGuard가 JwtStrategy를 찾을 수 있는 이유는 JwtStrategy는 AuthModule의 프로바이더로 등록이 되어 있고 "@nestjs/passport"의 내부 로직에 의해 PassportStrategy를 상속받은 전략 클래스(JwtStrategy)를 자동으로 찾아냅니다.
+
+JwtAuthGuard는 AuthGuard("jwt") 즉, jwt 유형의 AuthGuard를 상속받은 클래스이기 때문에 PassportStrategy를 상속받은 여러가지 클래스 중에서(예를들어 로그인, 인증 방식에 따라 LocalStrategy, KakaoStrategy 등 여러가지로 정의될 수 있습니다.) passport-jwt의 Strategy를 인자로 받은 PassportStrategy를 상속받은 JwtStrategy을 찾는 것 입니다.
+
+결론적으로 if (@UseGuard(JwtAuthGuard)로 데코레이팅된 컨트롤러가 실행)
+
+1. JwtAuthGuard는 PassportStrategy를 상속받은 전략 클래스인 JwtStrategy를 찾는다. ("@nestjs/passport" 로직에 의해)
+
+(단, 프로바이더에 등록 되어 있어야 합니다.)
+
+2. JwtStrategy의 로직이 수행.
+
+추가적으로 궁금하신 것 있으시면 답글 남겨주세요.
+
+감사합니다. :)
+
+<BR>
+
+https://www.inflearn.com/course/%ED%83%84%ED%83%84%ED%95%9C-%EB%B0%B1%EC%97%94%EB%93%9C-%EB%84%A4%EC%8A%A4%ED%8A%B8/lecture/83833?tab=community&volume=1.00&quality=1080&speed=1.25&q=284442
+
+<BR>
+
+### Swagger API 보안 설정
+
+---
+
+<BR>
+
+✔ 서비스를 배포했을 때, Swagger 문서가 노출되면 심각한 보안 문제를 초래할 수 있다.
+
+https://www.npmjs.com/package/express-basic-auth
