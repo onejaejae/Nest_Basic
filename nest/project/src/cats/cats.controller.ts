@@ -1,3 +1,5 @@
+import { CurrentUser } from './../common/decorators/user.decorator';
+import { JwtAuthGuard } from './../auth/jwt/jwt.guard';
 import { LoginRequestDto } from './../auth/dto/login.request.dto';
 import { AuthService } from './../auth/auth.service';
 import { ReadOnlyCatDto } from './dto/cat.dto';
@@ -9,11 +11,13 @@ import {
   Get,
   Post,
   UseFilters,
+  UseGuards,
   UseInterceptors,
 } from '@nestjs/common';
 import { SuccessInterceptor } from 'src/common/interceptors/success.intercept';
 import { CatRequestDto } from './dto/cats.request.dto';
 import { ApiOperation, ApiResponse } from '@nestjs/swagger';
+import { Request } from 'express';
 
 @Controller('cats')
 @UseInterceptors(SuccessInterceptor)
@@ -26,10 +30,13 @@ export class CatsController {
 
   @ApiOperation({ summary: '현재 고양이 가져오기' })
   @Get()
-  getCurrentCat() {
+  @UseGuards(JwtAuthGuard)
+  // Custom decorator를 사용하여 한 단계 더 추상화를 진행
+  getCurrentCat(@CurrentUser() cat) {
     // express error 처리 => throw new Error()
     // nest error 처리 => throw new HttpException('api is broken', 401);
-    return 'current cat';
+
+    return cat.readOnlyData;
   }
 
   @ApiResponse({ status: 500, description: 'Server Error...' })
@@ -46,6 +53,9 @@ export class CatsController {
     return this.authService.jwtLogin(data);
   }
 
+  // JWT 자체를 프론트엔드단에서 없애버리면
+  // 로그아웃이 자동으로 되기떄문에
+  // 백엔드단에서 로그아웃 기능을 구현하지 않아도 된다.
   @ApiOperation({ summary: '로그아웃' })
   @Post('logout')
   logout() {
