@@ -9,6 +9,15 @@ import { Model } from 'mongoose';
 export class CatsRepository {
   constructor(@InjectModel(Cat.name) private readonly catModel: Model<Cat>) {}
 
+  async findByIdAndUpdateImg(id: string, filename: string) {
+    const cat = await this.catModel.findById(id);
+
+    cat.imgUrl = `http://localhost:8000/media/${filename}`;
+    const newCat = await cat.save();
+
+    return newCat.readOnlyData;
+  }
+
   // request.user에 저장할 떄 Password 필드는
   // 제외하고 저장하는 것이 보안상 좋다
   async findCatByIdWithoutPassword(catId: string): Promise<Cat | null> {

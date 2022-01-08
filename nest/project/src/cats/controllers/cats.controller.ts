@@ -1,23 +1,26 @@
-import { CurrentUser } from './../common/decorators/user.decorator';
-import { JwtAuthGuard } from './../auth/jwt/jwt.guard';
-import { LoginRequestDto } from './../auth/dto/login.request.dto';
-import { AuthService } from './../auth/auth.service';
-import { ReadOnlyCatDto } from './dto/cat.dto';
-import { HttpExceptionFilter } from '../common/exceptions/http-exception.filter';
-import { CatsService } from './cats.service';
+import { CurrentUser } from '../../common/decorators/user.decorator';
+import { JwtAuthGuard } from '../../auth/jwt/jwt.guard';
+import { LoginRequestDto } from '../../auth/dto/login.request.dto';
+import { AuthService } from '../../auth/auth.service';
+import { ReadOnlyCatDto } from '../dto/cat.dto';
+import { HttpExceptionFilter } from '../../common/exceptions/http-exception.filter';
+import { CatsService } from '../services/cats.service';
 import {
   Body,
   Controller,
   Get,
   Post,
+  UploadedFiles,
   UseFilters,
   UseGuards,
   UseInterceptors,
 } from '@nestjs/common';
 import { SuccessInterceptor } from 'src/common/interceptors/success.intercept';
-import { CatRequestDto } from './dto/cats.request.dto';
+import { CatRequestDto } from '../dto/cats.request.dto';
 import { ApiOperation, ApiResponse } from '@nestjs/swagger';
-import { Cat } from './cats.schema';
+import { Cat } from '../cats.schema';
+import { FilesInterceptor } from '@nestjs/platform-express';
+import { multerOptions } from 'src/common/utils/multer.option';
 
 @Controller('cats')
 @UseInterceptors(SuccessInterceptor)
@@ -31,8 +34,7 @@ export class CatsController {
   @ApiOperation({ summary: '현재 고양이 가져오기' })
   @Get()
   //@UseGuard(JwtAuthGuard)로 데코레이팅된 컨트롤러가 실행되면
-  //JwtAuthGuard는 자동으로 PassportStrategy를 상속받은 JwtStrategy를 찾아서
-  // 로직을 수행합니다.
+  //JwtAuthGuard는 자동으로 PassportStrategy를 상속받은 JwtStrategy를 찾아서로직을 수행합니다.
   @UseGuards(JwtAuthGuard)
   // Custom decorator를 사용하여 한 단계 더 추상화를 진행
   getCurrentCat(@CurrentUser() cat: Cat) {
@@ -66,8 +68,13 @@ export class CatsController {
   }
 
   @ApiOperation({ summary: '고양이 이미지 업로드' })
-  @Post('upload/cats')
-  uploadCatImg() {
-    return 'upload cat';
+  @UseGuards(JwtAuthGuard)
+  @UseInterceptors(FilesInterceptor('image', 10, multerOptions('cats')))
+  @Post('upload')
+  uploadCatImg(
+    @CurrentUser() cat: Cat,
+    @UploadedFiles() files: Array<Express.Multer.File>,
+  ) {
+    return this.catsService.uploadImg(cat, files);
   }
 }
