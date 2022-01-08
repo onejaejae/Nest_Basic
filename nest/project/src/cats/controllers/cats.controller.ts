@@ -44,6 +44,12 @@ export class CatsController {
     return cat.readOnlyData;
   }
 
+  @ApiOperation({ summary: '모든 고양이 가져오기' })
+  @Get('all')
+  async getAllCat() {
+    return this.catsService.getAllCat();
+  }
+
   @ApiResponse({ status: 500, description: 'Server Error...' })
   @ApiResponse({ status: 201, description: '성공!', type: ReadOnlyCatDto })
   @ApiOperation({ summary: '회원가입' })

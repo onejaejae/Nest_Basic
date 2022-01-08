@@ -8,6 +8,12 @@ import { Cat } from '../cats.schema';
 export class CatsService {
   constructor(private readonly catsRepository: CatsRepository) {}
 
+  async getAllCat() {
+    const allCat = await this.catsRepository.findAll();
+    const readOnlyCats = allCat.map((cat) => cat.readOnlyData);
+    return readOnlyCats;
+  }
+
   async uploadImg(cat: Cat, files: Array<Express.Multer.File>) {
     const filename = `cats/${files[0].filename}`;
 
