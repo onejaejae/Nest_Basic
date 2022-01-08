@@ -1,4 +1,4 @@
-import { CatRequestDto } from './dto/cats.request.dto';
+import { CatRequestDto } from './dtos/cats.request.dto';
 import { InjectModel } from '@nestjs/mongoose';
 import { Injectable } from '@nestjs/common';
 import { Cat } from './cats.schema';

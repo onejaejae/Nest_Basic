@@ -2,7 +2,7 @@ import { CurrentUser } from '../../common/decorators/user.decorator';
 import { JwtAuthGuard } from '../../auth/jwt/jwt.guard';
 import { LoginRequestDto } from '../../auth/dto/login.request.dto';
 import { AuthService } from '../../auth/auth.service';
-import { ReadOnlyCatDto } from '../dto/cat.dto';
+import { ReadOnlyCatDto } from '../dtos/cat.dto';
 import { HttpExceptionFilter } from '../../common/exceptions/http-exception.filter';
 import { CatsService } from '../services/cats.service';
 import {
@@ -16,7 +16,7 @@ import {
   UseInterceptors,
 } from '@nestjs/common';
 import { SuccessInterceptor } from 'src/common/interceptors/success.intercept';
-import { CatRequestDto } from '../dto/cats.request.dto';
+import { CatRequestDto } from '../dtos/cats.request.dto';
 import { ApiOperation, ApiResponse } from '@nestjs/swagger';
 import { Cat } from '../cats.schema';
 import { FilesInterceptor } from '@nestjs/platform-express';
