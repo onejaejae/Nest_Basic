@@ -42,7 +42,7 @@ async function bootstrap() {
   });
 
   // 환경변수는 절대 노출이 되면 안된다.
-  const PORT = process.env.port;
+  const PORT = process.env.PORT;
   await app.listen(PORT);
 }
 bootstrap();
